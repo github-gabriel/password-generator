@@ -12,7 +12,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class Panel extends JPanel implements ActionListener {
+// Icons von https://www.flaticon.com/de/
+
+public class GeneratorPanel extends JPanel implements ActionListener {
 
     private static final Font HEADING_FONT = new Font("Arial", Font.BOLD, 52);
     private static final Font FONT = new Font("Arial", Font.PLAIN, 38);
@@ -21,17 +23,22 @@ public class Panel extends JPanel implements ActionListener {
     private GridBagConstraints gbc;
 
     private JTextArea textArea;
-    private JButton generateBtn, copyBtn;
+    private JButton generateBtn, copyBtn, encodeBtn;
     private JSpinner spinner;
 
-    private static final String[] CHECKBOXES_TEXT = {"Numbers","Special characters", "Uppercase Letters", "Lowercase Letters"};
+    private static final String[] CHECKBOXES_TEXT = {"Numbers", "Special characters", "Uppercase Letters", "Lowercase Letters"};
     private static final JCheckBox[] CHECKBOXES = new JCheckBox[4];
 
-    public Panel() {
+    public GeneratorPanel() {
         initComponents();
     }
 
     private void initComponents() {
+
+        InputStream inputStream;
+        Image img;
+        Image newImg;
+
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
@@ -40,11 +47,11 @@ public class Panel extends JPanel implements ActionListener {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        JLabel label = new JLabel("Generate Password with: ");
-        label.setFont(HEADING_FONT);
-        add(label, gbc);
+        JLabel heading = new JLabel("Generate Password with: ");
+        heading.setFont(HEADING_FONT);
+        add(heading, gbc);
 
-        addCheckBoxes(CHECKBOXES, CHECKBOXES_TEXT);
+        SharedMethods.addCheckBoxes(this, gbc, CHECKBOXES, CHECKBOXES_TEXT, FONT);
 
         SpinnerNumberModel model = new SpinnerNumberModel(8, 1, 50, 1);
 
@@ -70,14 +77,14 @@ public class Panel extends JPanel implements ActionListener {
         gbc.gridy = 6;
         generateBtn = new JButton();
         try {
-            InputStream inputStream = new FileInputStream(new File("src/resources/runIcon.png"));
-            Image img = ImageIO.read(inputStream);
-            Image newImg = img.getScaledInstance( 44, 44,  Image.SCALE_AREA_AVERAGING ) ;
+            inputStream = new FileInputStream(new File("src/resources/runIcon.png"));
+            img = ImageIO.read(inputStream);
+            newImg = img.getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING);
             generateBtn.setIcon(new ImageIcon(newImg));
         } catch (Exception ex) {
-            System.err.println(ex);
+            ex.printStackTrace();
         }
-        generateBtn.setPreferredSize(new Dimension(52, 52));
+        generateBtn.setPreferredSize(new Dimension(72, 72));
         generateBtn.addActionListener(this);
         generateBtn.setFont(FONT);
         add(generateBtn, gbc);
@@ -86,35 +93,40 @@ public class Panel extends JPanel implements ActionListener {
         gbc.gridy = 6;
         copyBtn = new JButton();
         try {
-            InputStream inputStream = new FileInputStream(new File("src/resources/copyIcon.png"));
-            Image img = ImageIO.read(inputStream);
-            Image newImg = img.getScaledInstance( 40, 40,  java.awt.Image.SCALE_AREA_AVERAGING );
+            inputStream = new FileInputStream(new File("src/resources/copyIcon.png"));
+            img = ImageIO.read(inputStream);
+            newImg = img.getScaledInstance(60, 60, java.awt.Image.SCALE_AREA_AVERAGING);
             copyBtn.setIcon(new ImageIcon(newImg));
         } catch (Exception ex) {
-            System.err.println(ex);
+            ex.printStackTrace();
         }
-        copyBtn.setPreferredSize(new Dimension(52, 52));
+        copyBtn.setPreferredSize(new Dimension(72, 72));
         copyBtn.addActionListener(this);
         copyBtn.setFont(FONT);
         add(copyBtn, gbc);
 
-    }
-
-    private void addCheckBoxes(JCheckBox[] checkBoxes, String[] checkBoxesText) {
-        for (int i = 0; i < checkBoxes.length; i++) {
-            gbc.gridx = 0;
-            gbc.gridy = i + 1;
-            checkBoxes[i] = new JCheckBox(checkBoxesText[i]);
-            checkBoxes[i].setFont(FONT);
-            checkBoxes[i].setSelected(true);
-            add(checkBoxes[i], gbc);
+        gbc.gridx = 3;
+        gbc.gridy = 6;
+        encodeBtn = new JButton();
+        try {
+            inputStream = new FileInputStream(new File("src/resources/encodeIcon.png"));
+            img = ImageIO.read(inputStream);
+            newImg = img.getScaledInstance(60, 60, java.awt.Image.SCALE_AREA_AVERAGING);
+            encodeBtn.setIcon(new ImageIcon(newImg));
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+        encodeBtn.setPreferredSize(new Dimension(72, 72));
+        encodeBtn.addActionListener(this);
+        encodeBtn.setFont(FONT);
+        add(encodeBtn, gbc);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == generateBtn) {
+        if (e.getSource() == generateBtn) {
 
             boolean numbers = CHECKBOXES[0].isSelected();
             boolean specialChars = CHECKBOXES[1].isSelected();
@@ -125,10 +137,16 @@ public class Panel extends JPanel implements ActionListener {
 
         }
 
-        if(e.getSource() == copyBtn) {
+        if (e.getSource() == copyBtn) {
             // Copy text to clipboard
             StringSelection stringSelection = new StringSelection(textArea.getText());
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+            JOptionPane.showMessageDialog(null, "Password copied to clipboard");
         }
+
+        if (e.getSource() == encodeBtn) {
+            Window encodeWindow = new Window("Encode Options", 1280, 720, new EncodingPanel(), JFrame.DISPOSE_ON_CLOSE);
+        }
+
     }
 }

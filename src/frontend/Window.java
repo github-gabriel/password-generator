@@ -5,19 +5,19 @@ import java.awt.*;
 
 public class Window extends JFrame {
 
-    private final Panel panel;
+    private final JPanel panel;
     private int width;
     private int height;
 
-    public Window(String title, int width, int height) {
+    public Window(String title, int width, int height, JPanel panel, int defaultCloseOperation) {
         this.width = width;
         this.height = height;
-        this.panel = new Panel();
+        this.panel = panel;
         this.add(panel);
         this.setTitle(title);
-        this.setMinimumSize(new Dimension(850, 550));
+        this.setMinimumSize(new Dimension(950, 550));
         this.setSize(new Dimension(this.width, this.height));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(defaultCloseOperation);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }

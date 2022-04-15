@@ -1,5 +1,6 @@
 package main;
 
+import frontend.GeneratorPanel;
 import frontend.Window;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        Window window = new Window("Password Generator", 1280,720);
+        Window window = new Window("Password Generator", 1280,720, new GeneratorPanel(), JFrame.EXIT_ON_CLOSE);
         window.update();
 
     }
