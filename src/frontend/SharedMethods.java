@@ -11,7 +11,11 @@ public class SharedMethods {
             gbc.gridy = i + 1;
             checkBoxes[i] = new JCheckBox(checkBoxesText[i]);
             checkBoxes[i].setFont(font);
-            checkBoxes[i].setSelected(true);
+            if(panel instanceof GeneratorPanel) {
+                checkBoxes[i].setSelected(true);
+            }else{
+                checkBoxes[0].setSelected(true);
+            }
             panel.add(checkBoxes[i], gbc);
         }
     }

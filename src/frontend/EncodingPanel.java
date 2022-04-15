@@ -5,6 +5,7 @@ import backend.Encoder;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -20,7 +21,7 @@ public class EncodingPanel extends JPanel implements ActionListener {
     private GridBagConstraints gbc;
 
     private JTextArea encodedPassword, password;
-    private JButton generateBtn;
+    private JButton generateBtn, copyBtn;
 
     private static final String[] CHECKBOXES_TEXT = {"Base 64","","",""};
     private static final JCheckBox[] CHECKBOXES = new JCheckBox[4];
@@ -57,15 +58,31 @@ public class EncodingPanel extends JPanel implements ActionListener {
         try {
             inputStream = new FileInputStream(new File("src/resources/runIcon.png"));
             img = ImageIO.read(inputStream);
-            newImg = img.getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING);
+            newImg = img.getScaledInstance(42, 42, Image.SCALE_AREA_AVERAGING);
             generateBtn.setIcon(new ImageIcon(newImg));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        generateBtn.setPreferredSize(new Dimension(72, 72));
+        generateBtn.setPreferredSize(new Dimension(60, 60));
         generateBtn.addActionListener(this);
         generateBtn.setFont(FONT);
         add(generateBtn, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        copyBtn = new JButton();
+        try {
+            inputStream = new FileInputStream(new File("src/resources/copyIcon.png"));
+            img = ImageIO.read(inputStream);
+            newImg = img.getScaledInstance(46, 46, java.awt.Image.SCALE_AREA_AVERAGING);
+            copyBtn.setIcon(new ImageIcon(newImg));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        copyBtn.setPreferredSize(new Dimension(60, 60));
+        copyBtn.addActionListener(this);
+        copyBtn.setFont(FONT);
+        add(copyBtn, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 6;
@@ -102,6 +119,11 @@ public class EncodingPanel extends JPanel implements ActionListener {
 
         }
 
+        if(e.getSource() == copyBtn) {
+            // Copy to clipboard
+            StringSelection stringSelection = new StringSelection(encodedPassword.getText());
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+            JOptionPane.showMessageDialog(null, "Encoded Password copied to clipboard!");
+        }
     }
-
 }

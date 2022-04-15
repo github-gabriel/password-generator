@@ -79,12 +79,12 @@ public class GeneratorPanel extends JPanel implements ActionListener {
         try {
             inputStream = new FileInputStream(new File("src/resources/runIcon.png"));
             img = ImageIO.read(inputStream);
-            newImg = img.getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING);
+            newImg = img.getScaledInstance(42, 46, Image.SCALE_AREA_AVERAGING);
             generateBtn.setIcon(new ImageIcon(newImg));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        generateBtn.setPreferredSize(new Dimension(72, 72));
+        generateBtn.setPreferredSize(new Dimension(60, 60));
         generateBtn.addActionListener(this);
         generateBtn.setFont(FONT);
         add(generateBtn, gbc);
@@ -95,12 +95,12 @@ public class GeneratorPanel extends JPanel implements ActionListener {
         try {
             inputStream = new FileInputStream(new File("src/resources/copyIcon.png"));
             img = ImageIO.read(inputStream);
-            newImg = img.getScaledInstance(60, 60, java.awt.Image.SCALE_AREA_AVERAGING);
+            newImg = img.getScaledInstance(46, 46, java.awt.Image.SCALE_AREA_AVERAGING);
             copyBtn.setIcon(new ImageIcon(newImg));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        copyBtn.setPreferredSize(new Dimension(72, 72));
+        copyBtn.setPreferredSize(new Dimension(60, 60));
         copyBtn.addActionListener(this);
         copyBtn.setFont(FONT);
         add(copyBtn, gbc);
@@ -111,12 +111,12 @@ public class GeneratorPanel extends JPanel implements ActionListener {
         try {
             inputStream = new FileInputStream(new File("src/resources/encodeIcon.png"));
             img = ImageIO.read(inputStream);
-            newImg = img.getScaledInstance(60, 60, java.awt.Image.SCALE_AREA_AVERAGING);
+            newImg = img.getScaledInstance(46, 46, java.awt.Image.SCALE_AREA_AVERAGING);
             encodeBtn.setIcon(new ImageIcon(newImg));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        encodeBtn.setPreferredSize(new Dimension(72, 72));
+        encodeBtn.setPreferredSize(new Dimension(60, 60));
         encodeBtn.addActionListener(this);
         encodeBtn.setFont(FONT);
         add(encodeBtn, gbc);
@@ -138,15 +138,14 @@ public class GeneratorPanel extends JPanel implements ActionListener {
         }
 
         if (e.getSource() == copyBtn) {
-            // Copy text to clipboard
+            // Copy to clipboard
             StringSelection stringSelection = new StringSelection(textArea.getText());
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
-            JOptionPane.showMessageDialog(null, "Password copied to clipboard");
+            JOptionPane.showMessageDialog(null, "Password copied to clipboard!");
         }
 
         if (e.getSource() == encodeBtn) {
             Window encodeWindow = new Window("Encode Options", 1280, 720, new EncodingPanel(), JFrame.DISPOSE_ON_CLOSE);
         }
-
     }
 }
