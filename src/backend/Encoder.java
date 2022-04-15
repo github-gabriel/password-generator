@@ -25,10 +25,10 @@ public final class Encoder {
         }
 
         if (sha256) {
-           return toHexString(getSHA256(password));
+            return toHexString(getSHA256(password));
         }
 
-        if(sha512) {
+        if (sha512) {
             return toHexString(getSHA512(password));
         }
 
@@ -62,8 +62,7 @@ public final class Encoder {
         return encryptedpassword;
     }
 
-    private static byte[] getSHA256(String input) throws NoSuchAlgorithmException
-    {
+    private static byte[] getSHA256(String input) throws NoSuchAlgorithmException {
         /* MessageDigest instance for hashing using SHA256 */
         MessageDigest md = MessageDigest.getInstance("SHA-256");
 
@@ -71,8 +70,7 @@ public final class Encoder {
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
 
-    private static byte[] getSHA512(String input) throws NoSuchAlgorithmException
-    {
+    private static byte[] getSHA512(String input) throws NoSuchAlgorithmException {
         /* MessageDigest instance for hashing using SHA512*/
         MessageDigest md = MessageDigest.getInstance("SHA-512");
 
@@ -80,8 +78,7 @@ public final class Encoder {
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
 
-    private static String toHexString(byte[] hash)
-    {
+    private static String toHexString(byte[] hash) {
         /* Convert byte array of hash into digest */
         BigInteger number = new BigInteger(1, hash);
 
@@ -89,8 +86,7 @@ public final class Encoder {
         StringBuilder hexString = new StringBuilder(number.toString(16));
 
         /* Pad with leading zeros */
-        while (hexString.length() < 32)
-        {
+        while (hexString.length() < 32) {
             hexString.insert(0, '0');
         }
 

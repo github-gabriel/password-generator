@@ -1,6 +1,6 @@
 package frontend;
 
-import backend.Generator;
+import backend.PasswordGenerator;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -133,7 +133,7 @@ public class GeneratorPanel extends JPanel implements ActionListener {
             boolean upperCase = CHECKBOXES[2].isSelected();
             boolean lowerCase = CHECKBOXES[3].isSelected();
 
-            textArea.setText(Generator.generatePassword((int) spinner.getValue(), numbers, specialChars, upperCase, lowerCase));
+            textArea.setText(PasswordGenerator.generatePassword((int) spinner.getValue(), numbers, specialChars, upperCase, lowerCase));
 
         }
 

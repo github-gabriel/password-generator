@@ -26,7 +26,7 @@ public class EncodingPanel extends JPanel implements ActionListener {
     private JTextArea encodedPassword, password;
     private JButton generateBtn, copyBtn;
 
-    private static final String[] CHECKBOXES_TEXT = {"Base 64","MD5","SHA256","SHA512"};
+    private static final String[] CHECKBOXES_TEXT = {"Base 64", "MD5", "SHA256", "SHA512"};
     private static final JCheckBox[] CHECKBOXES = new JCheckBox[4];
 
     public EncodingPanel() {
@@ -53,7 +53,7 @@ public class EncodingPanel extends JPanel implements ActionListener {
         heading.setFont(HEADING_FONT);
         add(heading, gbc);
 
-        SharedMethods.addCheckBoxes(this, gbc,CHECKBOXES, CHECKBOXES_TEXT, FONT);
+        SharedMethods.addCheckBoxes(this, gbc, CHECKBOXES, CHECKBOXES_TEXT, FONT);
 
         gbc.gridx = 1;
         gbc.gridy = 6;
@@ -114,7 +114,7 @@ public class EncodingPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == generateBtn) {
+        if (e.getSource() == generateBtn) {
 
             boolean base64 = CHECKBOXES[0].isSelected();
             boolean md5 = CHECKBOXES[1].isSelected();
@@ -129,7 +129,7 @@ public class EncodingPanel extends JPanel implements ActionListener {
 
         }
 
-        if(e.getSource() == copyBtn) {
+        if (e.getSource() == copyBtn) {
             // Copy to clipboard
             StringSelection stringSelection = new StringSelection(encodedPassword.getText());
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
