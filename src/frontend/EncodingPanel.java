@@ -19,6 +19,7 @@ public class EncodingPanel extends JPanel implements ActionListener {
     private static final Font OUTPUT_FONT = new Font("Arial", Font.PLAIN, 30);
 
     private GridBagConstraints gbc;
+    private ButtonGroup buttonGroup = new ButtonGroup();
 
     private JTextArea encodedPassword, password;
     private JButton generateBtn, copyBtn;
@@ -111,6 +112,8 @@ public class EncodingPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+
+
         if(e.getSource() == generateBtn) {
 
             boolean base64 = CHECKBOXES[0].isSelected();
@@ -125,5 +128,6 @@ public class EncodingPanel extends JPanel implements ActionListener {
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
             JOptionPane.showMessageDialog(null, "Encoded Password copied to clipboard!");
         }
+
     }
 }
