@@ -11,12 +11,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
 
 public class EncodingPanel extends JPanel implements ActionListener {
 
     private static final Font HEADING_FONT = new Font("Arial", Font.BOLD, 52);
     private static final Font FONT = new Font("Arial", Font.PLAIN, 38);
     private static final Font OUTPUT_FONT = new Font("Arial", Font.PLAIN, 30);
+    private static final Font OUTPUT_FONT_SMALL = new Font("Arial", Font.PLAIN, 20);
 
     private GridBagConstraints gbc;
     private ButtonGroup buttonGroup = new ButtonGroup();
@@ -24,7 +26,7 @@ public class EncodingPanel extends JPanel implements ActionListener {
     private JTextArea encodedPassword, password;
     private JButton generateBtn, copyBtn;
 
-    private static final String[] CHECKBOXES_TEXT = {"Base 64","","",""};
+    private static final String[] CHECKBOXES_TEXT = {"Base 64","MD5","SHA256","SHA512"};
     private static final JCheckBox[] CHECKBOXES = new JCheckBox[4];
 
     public EncodingPanel() {
@@ -103,7 +105,7 @@ public class EncodingPanel extends JPanel implements ActionListener {
         encodedPassword.setPreferredSize(new Dimension(600, 76));
         encodedPassword.setLineWrap(true);
         encodedPassword.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
-        encodedPassword.setFont(OUTPUT_FONT);
+        encodedPassword.setFont(OUTPUT_FONT_SMALL);
         encodedPassword.setCursor(null);
         add(encodedPassword, gbc);
 
@@ -112,13 +114,18 @@ public class EncodingPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-
-
         if(e.getSource() == generateBtn) {
 
             boolean base64 = CHECKBOXES[0].isSelected();
+            boolean md5 = CHECKBOXES[1].isSelected();
+            boolean sha256 = CHECKBOXES[2].isSelected();
+            boolean sha512 = CHECKBOXES[3].isSelected();
 
-            encodedPassword.setText(Encoder.encode(password.getText(), base64));
+            try {
+                encodedPassword.setText(Encoder.encode(password.getText(), base64, md5, sha256, sha512));
+            } catch (NoSuchAlgorithmException ex) {
+                ex.printStackTrace();
+            }
 
         }
 
