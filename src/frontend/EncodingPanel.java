@@ -4,6 +4,8 @@ import backend.Encoder;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
@@ -13,7 +15,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 
-public class EncodingPanel extends JPanel implements ActionListener {
+public class EncodingPanel extends JPanel implements ActionListener, DocumentListener {
 
     private static final Font HEADING_FONT = new Font("Arial", Font.BOLD, 52);
     private static final Font FONT = new Font("Arial", Font.PLAIN, 38);
@@ -23,8 +25,10 @@ public class EncodingPanel extends JPanel implements ActionListener {
     private GridBagConstraints gbc;
     private ButtonGroup buttonGroup = new ButtonGroup();
 
-    private JTextArea encodedPassword, password;
+    private JTextArea encodedPassword, password, passwordToCompare;
     private JButton generateBtn, copyBtn;
+
+    private Graphics g;
 
     private static final String[] CHECKBOXES_TEXT = {"Base 64", "MD5", "SHA256", "SHA512"};
     private static final JCheckBox[] CHECKBOXES = new JCheckBox[4];
@@ -107,8 +111,35 @@ public class EncodingPanel extends JPanel implements ActionListener {
         encodedPassword.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
         encodedPassword.setFont(OUTPUT_FONT_SMALL);
         encodedPassword.setCursor(null);
+        encodedPassword.getDocument().addDocumentListener(this);
         add(encodedPassword, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        passwordToCompare = new JTextArea();
+        passwordToCompare.setEditable(true);
+        passwordToCompare.setPreferredSize(new Dimension(600, 76));
+        passwordToCompare.setLineWrap(true);
+        passwordToCompare.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
+        passwordToCompare.setFont(OUTPUT_FONT_SMALL);
+        passwordToCompare.setCursor(null);
+        passwordToCompare.getDocument().addDocumentListener(this);
+        add(passwordToCompare, gbc);
+
+    }
+
+    @Override
+    public void paint(Graphics g){
+        super.paint(g);
+        String input = passwordToCompare.getText();
+        String hashedPassword = encodedPassword.getText();
+        if(input.equals(hashedPassword)){
+            g.setColor(Color.GREEN);
+            g.fillRoundRect(passwordToCompare.getX() + passwordToCompare.getWidth() + 18, passwordToCompare.getY() + 15, 50,50,50,50);
+        }else{
+            g.setColor(Color.RED);
+            g.fillRoundRect(passwordToCompare.getX() + passwordToCompare.getWidth() + 18, passwordToCompare.getY() + 15, 50,50,50,50);
+        }
     }
 
     @Override
@@ -135,6 +166,48 @@ public class EncodingPanel extends JPanel implements ActionListener {
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
             JOptionPane.showMessageDialog(null, "Encoded Password copied to clipboard!");
         }
-
     }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        g = this.getGraphics();
+        String input = passwordToCompare.getText();
+        String hashedPassword = encodedPassword.getText();
+        if(input.equals(hashedPassword)){
+            g.setColor(Color.GREEN);
+            g.fillRoundRect(passwordToCompare.getX() + passwordToCompare.getWidth() + 18, passwordToCompare.getY() + 15, 50,50,50,50);
+        }else{
+            g.setColor(Color.RED);
+            g.fillRoundRect(passwordToCompare.getX() + passwordToCompare.getWidth() + 18, passwordToCompare.getY() + 15, 50,50,50,50);
+        }
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        g = this.getGraphics();
+        String input = passwordToCompare.getText();
+        String hashedPassword = encodedPassword.getText();
+        if(input.equals(hashedPassword)){
+            g.setColor(Color.GREEN);
+            g.fillRoundRect(passwordToCompare.getX() + passwordToCompare.getWidth() + 18, passwordToCompare.getY() + 15, 50,50,50,50);
+        }else{
+            g.setColor(Color.RED);
+            g.fillRoundRect(passwordToCompare.getX() + passwordToCompare.getWidth() + 18, passwordToCompare.getY() + 15, 50,50,50,50);
+        }
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        g = this.getGraphics();
+        String input = passwordToCompare.getText();
+        String hashedPassword = encodedPassword.getText();
+        if(input.equals(hashedPassword)){
+            g.setColor(Color.GREEN);
+            g.fillRoundRect(passwordToCompare.getX() + passwordToCompare.getWidth() + 18, passwordToCompare.getY() + 15, 50,50,50,50);
+        }else{
+            g.setColor(Color.RED);
+            g.fillRoundRect(passwordToCompare.getX() + passwordToCompare.getWidth() + 18, passwordToCompare.getY() + 15, 50,50,50,50);
+        }
+    }
+
 }

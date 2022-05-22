@@ -15,7 +15,7 @@ public class Window extends JFrame {
         this.panel = panel;
         this.add(panel);
         this.setTitle(title);
-        this.setMinimumSize(new Dimension(950, 550));
+        this.setMinimumSize(new Dimension(900, 650));
         this.setSize(new Dimension(this.width, this.height));
         this.setDefaultCloseOperation(defaultCloseOperation);
         this.setVisible(true);
@@ -42,6 +42,5 @@ public class Window extends JFrame {
     public void setHeight(int height) {
         this.height = height;
     }
-
 
 }
