@@ -77,7 +77,7 @@ public class GeneratorPanel extends JPanel implements ActionListener {
         gbc.gridy = 6;
         generateBtn = new JButton();
         try {
-            inputStream = new FileInputStream(new File("src/resources/runIcon.png"));
+            inputStream = getClass().getResourceAsStream("/resources/runIcon.png");
             img = ImageIO.read(inputStream);
             newImg = img.getScaledInstance(42, 46, Image.SCALE_AREA_AVERAGING);
             generateBtn.setIcon(new ImageIcon(newImg));
@@ -93,7 +93,7 @@ public class GeneratorPanel extends JPanel implements ActionListener {
         gbc.gridy = 6;
         copyBtn = new JButton();
         try {
-            inputStream = new FileInputStream(new File("src/resources/copyIcon.png"));
+            inputStream = getClass().getResourceAsStream("/resources/copyIcon.png");
             img = ImageIO.read(inputStream);
             newImg = img.getScaledInstance(46, 46, java.awt.Image.SCALE_AREA_AVERAGING);
             copyBtn.setIcon(new ImageIcon(newImg));
@@ -109,7 +109,7 @@ public class GeneratorPanel extends JPanel implements ActionListener {
         gbc.gridy = 6;
         encodeBtn = new JButton();
         try {
-            inputStream = new FileInputStream(new File("src/resources/encodeIcon.png"));
+            inputStream = getClass().getResourceAsStream("/resources/encodeIcon.png");
             img = ImageIO.read(inputStream);
             newImg = img.getScaledInstance(46, 46, java.awt.Image.SCALE_AREA_AVERAGING);
             encodeBtn.setIcon(new ImageIcon(newImg));

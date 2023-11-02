@@ -63,7 +63,7 @@ public class EncodingPanel extends JPanel implements ActionListener, DocumentLis
         gbc.gridy = 6;
         generateBtn = new JButton();
         try {
-            inputStream = new FileInputStream(new File("src/resources/runIcon.png"));
+            inputStream = getClass().getResourceAsStream("/resources/runIcon.png");
             img = ImageIO.read(inputStream);
             newImg = img.getScaledInstance(42, 42, Image.SCALE_AREA_AVERAGING);
             generateBtn.setIcon(new ImageIcon(newImg));
@@ -79,7 +79,7 @@ public class EncodingPanel extends JPanel implements ActionListener, DocumentLis
         gbc.gridy = 7;
         copyBtn = new JButton();
         try {
-            inputStream = new FileInputStream(new File("src/resources/copyIcon.png"));
+            inputStream = getClass().getResourceAsStream("/resources/copyIcon.png");
             img = ImageIO.read(inputStream);
             newImg = img.getScaledInstance(46, 46, java.awt.Image.SCALE_AREA_AVERAGING);
             copyBtn.setIcon(new ImageIcon(newImg));

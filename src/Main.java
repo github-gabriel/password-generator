@@ -1,5 +1,3 @@
-package main;
-
 import frontend.GeneratorPanel;
 import frontend.Window;
 
