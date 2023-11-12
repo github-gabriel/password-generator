@@ -19,6 +19,8 @@ da man jedes Wort bzw. Passwort einfach hashen kann, um herauszufinden was das g
 
 <img src="images/vergleich.png" width="720px">
 
+## Setup
+
 1. Clone this repository
 ```
 git clone https://github.com/github-gabriel/password-generator.git
