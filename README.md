@@ -7,7 +7,7 @@ Ein Passwort Generator, bei dem man die Optionen für die "Passwort-Generation" 
 - [x] Großbuchstaben
 - [x] Kleinbuchstaben
 
-<img src="src/resources/password-generator.png" width="720px">
+<img src="images/password-generator.png" width="720px">
 
 ## Encoding/Encryption Tab
 Der Passwort Generator hat einen "Encoding(/Encryption) Button" dazu bekommen. Darüber kann man das Passwort über verschiedene Algorithmen 
@@ -17,7 +17,7 @@ Der "Encoding(/Encryption) Tab" hat außerdem eine Vergleichsfunktion, da decode
 funktioniert. Um trotzdem herausfinden zu können, was das Passwort mal "ursprünglich" war, vergleicht man zwei gehashte Passwörter,
 da man jedes Wort bzw. Passwort einfach hashen kann, um herauszufinden was das gehashte Passwort, gegen welches man vergleicht, ursprünglich mal war.
 
-<img src="src/resources/vergleich.png" width="720px">
+<img src="images/vergleich.png" width="720px">
 
 1. Clone this repository
 ```
